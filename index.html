@@ -1,0 +1,1576 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <style>
+html,
+body {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    overflow: hidden !important;
+}
+
+body::-webkit-scrollbar {
+    display: none;
+}
+
+body {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+/* ================================
+   FULL SCREEN
+================================ */
+
+.prompt-screen {
+    width: 100vw;
+    height: 100vh;
+
+    position: fixed;
+    inset: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    overflow: hidden;
+
+    background: #F5F0E3;
+    color: #0B301B;
+
+    font-family:
+        Inter,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        sans-serif;
+}
+
+/* ================================
+   BACKGROUND
+================================ */
+
+.prompt-screen::before {
+    content: "";
+
+    position: absolute;
+
+    width: 600px;
+    height: 600px;
+
+    top: -300px;
+    right: -150px;
+
+    border-radius: 50%;
+
+    background: #E8DDC6;
+
+    filter: blur(90px);
+
+    opacity: .55;
+
+    pointer-events: none;
+}
+
+.prompt-screen::after {
+    content: "";
+
+    position: absolute;
+
+    width: 500px;
+    height: 500px;
+
+    bottom: -300px;
+    left: -150px;
+
+    border-radius: 50%;
+
+    background: #0B301B;
+
+    filter: blur(120px);
+
+    opacity: .10;
+
+    pointer-events: none;
+}
+
+/* ================================
+   CENTER
+================================ */
+
+.prompt-content {
+    position: relative;
+
+    z-index: 2;
+
+    display: flex;
+    flex-direction: column;
+
+    align-items: center;
+    justify-content: center;
+
+    text-align: center;
+}
+
+/* ================================
+   TITLE
+================================ */
+
+.prompt-title {
+    margin: 0 0 28px;
+
+    color: #0B301B;
+
+    font-size: clamp(34px, 5vw, 68px);
+
+    line-height: 1;
+
+    font-weight: 600;
+
+    letter-spacing: -3px;
+}
+
+/* ================================
+   BUTTON
+================================ */
+
+.prompt-button {
+    height: 56px;
+
+    padding: 0 32px;
+
+    border: 1px solid rgba(11,48,27,.12);
+
+    border-radius: 100px;
+
+    background: #0B301B;
+
+    color: #F8E8D1;
+
+    font-size: 12px;
+
+    font-weight: 600;
+
+    letter-spacing: .7px;
+
+    cursor: pointer;
+
+    box-shadow:
+        0 15px 40px rgba(11,48,27,.18);
+
+    transition:
+        transform .3s ease,
+        background .3s ease,
+        box-shadow .3s ease;
+
+    -webkit-tap-highlight-color: transparent;
+}
+
+.prompt-button:hover {
+    transform: translateY(-3px);
+
+    background: #0F5A3A;
+
+    box-shadow:
+        0 20px 50px rgba(11,48,27,.25);
+}
+
+.prompt-button:active {
+    transform: scale(.96);
+}
+
+.prompt-button.copied {
+    background: #0F5A3A;
+}
+
+/* ================================
+   MOBILE
+================================ */
+
+@media (max-width: 600px) {
+
+    .prompt-title {
+        font-size: 38px;
+        letter-spacing: -1.8px;
+    }
+
+    .prompt-button {
+        height: 52px;
+        padding: 0 26px;
+    }
+}
+</style>
+
+
+<div class="prompt-screen">
+
+    <div class="prompt-content">
+
+        <h1 class="prompt-title">
+            Premium Website Prompt
+        </h1>
+
+        <button
+            type="button"
+            class="prompt-button"
+            onclick="copyPrompt(this)"
+        >
+            PROMPTNI NUSXALASH
+        </button>
+
+    </div>
+
+</div>
+
+
+<!--
+==========================================================
+PROMPTNI SHU YERGA YOZASIZ
+==========================================================
+
+MUHIM:
+
+Promptingizni shu textarea ichiga yozing.
+
+Bu joy oddiy textarea bo'lgani uchun prompt
+ichida quyidagilar bo'lishi mumkin:
+
+- HTML
+- CSS
+- JavaScript
+- <script>
+- </script>
+- backtick `
+- ${...}
+- qo'shtirnoqlar
+- kodlar
+- uzun matn
+- boshqa istalgan belgilar
+
+Hech biri copy funksiyasini buzmaydi.
+
+FAQAT PROMPTINGIZNI SHU YERGA YOZING.
+
+==========================================================
+-->
+
+<textarea
+    id="promptSource"
+    style="
+        display:none;
+        position:absolute;
+        width:1px;
+        height:1px;
+        opacity:0;
+        pointer-events:none;
+    "
+>
+Build the final premium interactive travel experience:
+
+TITLE:
+Tur paketlarimiz
+
+IMPORTANT:
+I am giving you a WORKING 3D CARD SLIDER implementation below.
+
+THE 3D ANIMATION IN THIS CODE ALREADY WORKS CORRECTLY.
+
+Your first priority is to PRESERVE THIS EXACT ANIMATION BEHAVIOR.
+
+DO NOT redesign the animation.
+DO NOT replace it with another carousel.
+DO NOT simplify it.
+DO NOT change the 3D movement.
+
+The cards must continue to:
+- rotate in 3D
+- move left and right
+- move backward and forward in depth
+- overlap naturally
+- scale according to position
+- bring the active card forward
+- create the same coverflow effect
+- support mouse dragging
+- support mobile swiping
+- support arrows
+- support pagination
+
+The existing animation mathematics must remain unchanged.
+
+==================================================
+CRITICAL LAYOUT REQUIREMENT
+==================================================
+
+The biggest problem to avoid:
+
+DO NOT CLIP THE CARDS.
+
+The transformed cards must remain fully visible.
+
+The left and right cards may extend outside their original card position because of the 3D transform.
+
+The slider viewport must therefore have enough horizontal space for the complete transformed composition.
+
+DO NOT create a small fixed container around the cards that cuts off half of the cards.
+
+DO NOT use overflow:hidden on a container that clips the visible cards.
+
+The page itself must not have horizontal scrolling.
+
+Use the correct structure:
+
+PAGE
+└── SECTION
+    ├── TITLE
+    └── SLIDER AREA
+        ├── LEFT ARROW
+        ├── 3D VIEWPORT
+        │   └── 3D CARDS
+        └── RIGHT ARROW
+
+The 3D viewport must be large enough to display the complete visible card composition.
+
+The page must have:
+
+html,
+body {
+    overflow-x: hidden;
+}
+
+This must prevent page-level horizontal scrolling without cutting the cards.
+
+==================================================
+TITLE / SLIDER SPACING
+==================================================
+
+The title must be visually close to the cards.
+
+Use:
+
+Tur paketlarimiz
+
+then a SMALL controlled vertical gap
+
+then the 3D cards.
+
+There must NOT be a huge empty vertical area.
+
+The title and slider should visually belong to the same composition.
+
+Do not use arbitrary large:
+margin-top
+margin-bottom
+padding-top
+padding-bottom
+
+values that create excessive whitespace.
+
+The slider should begin shortly after the title.
+
+==================================================
+SECTION HEIGHT
+==================================================
+
+Do NOT use an unnecessarily tall fixed-height section.
+
+The section height must be determined by the actual composition.
+
+Avoid creating huge empty spaces above or below the cards.
+
+Desktop should feel compact and editorial.
+
+Mobile should also remain compact.
+
+==================================================
+ARROWS
+==================================================
+
+The arrows must be positioned OUTSIDE the main card composition.
+
+Structure:
+
+        [←]       3D CARDS       [→]
+
+LEFT:
+vertically centered with the cards.
+
+RIGHT:
+vertically centered with the cards.
+
+They must NOT be placed underneath the cards.
+
+They must NOT push the slider downward.
+
+They must NOT create additional vertical spacing.
+
+They must NOT overlap the active card unnecessarily.
+
+Use absolute positioning relative to the slider area.
+
+==================================================
+DESIGN STYLE
+==================================================
+
+Create a premium luxury travel visual identity.
+
+LIGHT THEME ONLY.
+
+Do NOT use my personal brand colors.
+
+Do NOT use:
+#052013
+#FFFBCA
+
+Do NOT use:
+- yellow
+- mustard
+- bright gold
+- neon
+- strong gradients
+
+Use your own sophisticated light palette:
+- warm white
+- ivory
+- soft neutral tones
+- dark elegant typography
+- restrained premium accent
+
+The visual style should feel like:
+
+luxury travel editorial
++
+high-end magazine
++
+premium interactive website
+
+Do NOT make it look like a generic travel template.
+
+==================================================
+BACKGROUND
+==================================================
+
+The current plain background should become more atmospheric.
+
+Generate one subtle cinematic travel background image using AI.
+
+Direction:
+luxury resort / aerial coastline / mountain landscape / sophisticated destination.
+
+The image should cover the entire section.
+
+Keep it subtle.
+
+Use a light translucent overlay if necessary so that:
+- title remains readable
+- cards remain dominant
+- background creates depth
+- overall composition stays light
+
+Do NOT make the background dark.
+
+==================================================
+TYPOGRAPHY
+==================================================
+
+Use an elegant editorial serif font for:
+
+Tur paketlarimiz
+
+The title should feel premium and sophisticated.
+
+Avoid generic system sans-serif typography for the main title.
+
+Use a refined high-contrast serif similar to luxury fashion/travel editorial typography.
+
+Supporting text may use a clean modern sans-serif.
+
+==================================================
+DESTINATIONS
+==================================================
+
+Use these six destinations:
+
+1. Maldiv orollari
+2. Shveysariya
+3. Santorini
+4. Dubay
+5. Kioto
+6. Bora Bora
+
+Generate all six destination images with AI.
+
+Images must be:
+- photorealistic
+- premium
+- cinematic
+- visually consistent
+- luxury travel oriented
+
+==================================================
+CARD CONTENT
+==================================================
+
+Every card contains ONLY:
+
+Destination name
+Price
+Batafsil
+
+Examples:
+
+Maldiv orollari
+$1,200
+Batafsil
+
+Shveysariya
+$950
+Batafsil
+
+Santorini
+$900
+Batafsil
+
+Dubay
+$1,100
+Batafsil
+
+Kioto
+$1,000
+Batafsil
+
+Bora Bora
+$1,400
+Batafsil
+
+Do not put long descriptions inside the cards.
+
+Do not create card expansion.
+
+Do not reveal extra content on hover.
+
+The 3D visual movement must remain the main interaction.
+
+==================================================
+BATAFSIL MODAL
+==================================================
+
+When the user clicks:
+
+Batafsil
+
+open a premium destination modal.
+
+Desktop:
+
+LEFT:
+large destination image
+
+RIGHT:
+destination name
+short Uzbek description
+price
+Sotib olish button
+close button
+
+Example:
+
+Maldiv orollari
+
+Maldiv orollari — tiniq lagunalar, tropik tabiat va suv ustidagi hashamatli villalari bilan mashhur. Tinch va premium dam olish uchun ideal yo‘nalish.
+
+$1,200
+
+[Sotib olish]
+
+The modal must feel premium and editorial.
+
+Do not use a generic browser dialog.
+
+Use a refined backdrop and smooth open/close transition.
+
+Mobile:
+
+IMAGE
+NAME
+DESCRIPTION
+PRICE
+SOTIB OLISH
+
+Everything must fit inside the viewport.
+
+==================================================
+TILDA ORDER
+==================================================
+
+Use Tilda order syntax.
+
+Maldiv orollari:
+#order:Maldiv orollari=1200
+
+Shveysariya:
+#order:Shveysariya=950
+
+Santorini:
+#order:Santorini=900
+
+Dubay:
+#order:Dubay=1100
+
+Kioto:
+#order:Kioto=1000
+
+Bora Bora:
+#order:Bora Bora=1400
+
+The “Sotib olish” buttons must use these exact order links.
+
+==================================================
+RESPONSIVE
+==================================================
+
+Desktop:
+
+The active card must be large and dominant.
+
+The neighboring cards must remain clearly visible.
+
+The complete 3D composition must fit inside the viewport.
+
+Tablet:
+
+Reduce card size intelligently while preserving the same 3D effect.
+
+Mobile:
+
+Preserve the same 3D animation behavior.
+
+Preserve:
+- perspective
+- rotation
+- depth
+- swipe
+- active card
+- pagination
+
+The cards must remain visible.
+
+Do NOT allow half of a card to disappear because of a container boundary.
+
+The page must never horizontally scroll.
+
+The slider itself must handle its own transformed content correctly.
+
+==================================================
+IMPORTANT: DO NOT BREAK THE ANIMATION
+==================================================
+
+The following code is the proven working animation.
+
+USE IT AS THE BASE.
+
+Do NOT rewrite the animation calculations.
+
+Do NOT change:
+
+const offset = index-current;
+
+const abs = Math.abs(offset);
+
+let x = offset*260;
+
+let rotate = offset*-65;
+
+let scale = .82;
+
+let opacity = .25;
+
+let z = 100-abs;
+
+active:
+x = 0;
+rotate = 0;
+scale = 1;
+opacity = 1;
+z = 999;
+
+and:
+
+translateX(-50%)
+translateX(${x}px)
+translateZ(${-abs*180}px)
+rotateY(${rotate}deg)
+scale(${scale})
+
+These values are already correct.
+
+KEEP THEM.
+
+==================================================
+WORKING REFERENCE CODE
+==================================================
+
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tur paketlari</title>
+</head>
+
+<body>
+
+<div class="coverflow-wrapper">
+
+<div class="coverflow">
+
+<div class="cf-slide">
+<div class="tour-card">
+<div class="tour-bottom">
+<h3 class="tour-title">Dubay</h3>
+<div class="tour-info">
+<p>Osmono'par binolar, cho'l safarisi va hashamatli xaridlar shahri.</p>
+<a class="buy-btn" href="#buy:btn">Sotib olish</a>
+</div>
+</div>
+</div>
+</div>
+
+<div class="cf-slide">
+<div class="tour-card">
+<div class="tour-bottom">
+<h3 class="tour-title">Turkiya</h3>
+<div class="tour-info">
+<p>Kappadokiya, Antalya va tarixiy Istanbul.</p>
+<a class="buy-btn" href="#buy:btn">Sotib olish</a>
+</div>
+</div>
+</div>
+</div>
+
+<div class="cf-slide">
+<div class="tour-card">
+<div class="tour-bottom">
+<h3 class="tour-title">Maldiv orollari</h3>
+<div class="tour-info">
+<p>Tiniq lagunalar va suv ustidagi hashamatli villalar.</p>
+<a class="buy-btn" href="#buy:btn">Sotib olish</a>
+</div>
+</div>
+</div>
+</div>
+
+<div class="cf-slide">
+<div class="tour-card">
+<div class="tour-bottom">
+<h3 class="tour-title">Shvetsariya</h3>
+<div class="tour-info">
+<p>Alp tog'lari, tiniq ko'llar va ajoyib tabiat.</p>
+<a class="buy-btn" href="#buy:btn">Sotib olish</a>
+</div>
+</div>
+</div>
+</div>
+
+<div class="cf-slide">
+<div class="tour-card">
+<div class="tour-bottom">
+<h3 class="tour-title">Yaponiya</h3>
+<div class="tour-info">
+<p>Fuji tog'i, saqura gullari va zamonaviy Tokio.</p>
+<a class="buy-btn" href="#buy:btn">Sotib olish</a>
+</div>
+</div>
+</div>
+</div>
+
+<div class="cf-slide">
+<div class="tour-card">
+<div class="tour-bottom">
+<h3 class="tour-title">Bali</h3>
+<div class="tour-info">
+<p>Tropik plyajlar va noyob tabiat.</p>
+<a class="buy-btn" href="#buy:btn">Sotib olish</a>
+</div>
+</div>
+</div>
+</div>
+
+</div>
+
+<div class="cf-nav">
+
+<button class="cf-arrow cf-prev">‹</button>
+
+<div class="cf-dots-wrap">
+<div class="cf-dots"></div>
+</div>
+
+<button class="cf-arrow cf-next">›</button>
+
+</div>
+
+</div>
+
+
+<style>
+
+.coverflow-wrapper{
+position:relative;
+width:100%;
+height:700px;
+overflow:hidden;
+perspective:2000px;
+background:transparent;
+}
+
+.coverflow{
+width:100%;
+height:100%;
+position:relative;
+transform-style:preserve-3d;
+cursor:grab;
+user-select:none;
+-webkit-user-select:none;
+}
+
+.coverflow:active{
+cursor:grabbing;
+}
+
+.cf-slide{
+position:absolute;
+top:0;
+left:50%;
+width:240px;
+height:360px;
+transform-style:preserve-3d;
+
+transition:
+transform .8s cubic-bezier(.22,.61,.36,1),
+opacity .8s;
+
+will-change:transform;
+}
+
+.tour-card{
+width:100%;
+height:100%;
+border-radius:16px;
+
+background-size:cover;
+background-position:center;
+
+overflow:hidden;
+position:relative;
+
+display:flex;
+align-items:flex-end;
+}
+
+.tour-card::before{
+content:"";
+position:absolute;
+inset:0;
+
+background:
+linear-gradient(
+to top,
+rgba(0,0,0,.85) 0%,
+rgba(0,0,0,.15) 55%,
+rgba(0,0,0,0) 100%
+);
+}
+
+.tour-bottom{
+position:relative;
+z-index:2;
+
+width:100%;
+padding:18px;
+
+color:#fff;
+box-sizing:border-box;
+}
+
+.tour-title{
+margin:0 0 6px 0;
+
+font-size:22px;
+font-weight:700;
+letter-spacing:.5px;
+
+font-family:
+Georgia,
+'Times New Roman',
+serif;
+}
+
+.tour-info{
+max-height:0;
+opacity:0;
+overflow:hidden;
+
+transition:
+max-height .4s ease,
+opacity .35s ease,
+margin-top .4s ease;
+}
+
+.tour-info p{
+margin:0 0 12px 0;
+
+font-size:13px;
+line-height:1.5;
+
+font-family:Arial,sans-serif;
+
+color:rgba(255,255,255,.92);
+}
+
+.buy-btn{
+border:none;
+border-radius:999px;
+
+padding:9px 22px;
+
+background:#fff;
+color:#1a1a1a;
+
+font-size:13px;
+font-weight:700;
+
+font-family:Arial,sans-serif;
+
+cursor:pointer;
+
+display:inline-block;
+text-decoration:none;
+text-align:center;
+}
+
+.cf-nav{
+position:absolute;
+
+left:50%;
+bottom:260px;
+
+transform:translateX(-50%);
+
+display:flex;
+align-items:center;
+
+gap:14px;
+
+z-index:999;
+}
+
+.cf-arrow{
+position:relative;
+
+width:48px;
+height:48px;
+
+padding:0;
+margin:0;
+
+box-sizing:border-box;
+
+border:1px solid rgba(255,255,255,.35);
+
+border-radius:50%;
+
+background:rgba(255,255,255,.12);
+
+color:#fff;
+
+font-size:34px;
+
+font-family:Arial,sans-serif;
+
+line-height:1;
+
+cursor:pointer;
+
+display:flex;
+align-items:center;
+justify-content:center;
+}
+
+.cf-dots-wrap{
+position:relative;
+
+display:flex;
+align-items:center;
+
+padding:10px 18px;
+
+border-radius:999px;
+
+background:rgba(255,255,255,.12);
+
+border:1px solid rgba(255,255,255,.3);
+}
+
+.cf-dots{
+display:flex;
+align-items:center;
+gap:7px;
+}
+
+.cf-dot{
+width:7px;
+height:7px;
+
+border-radius:50%;
+
+background:rgba(255,255,255,.4);
+
+transition:.3s;
+
+cursor:pointer;
+}
+
+.cf-dot.active{
+width:22px;
+
+border-radius:999px;
+
+background:#fff;
+}
+
+@media(max-width:768px){
+
+.coverflow-wrapper{
+height:400px;
+}
+
+.cf-slide{
+width:180px;
+height:280px;
+}
+
+.tour-title{
+font-size:18px;
+}
+
+.tour-info p{
+font-size:12px;
+}
+
+.tour-info{
+max-height:160px;
+opacity:1;
+margin-top:6px;
+}
+
+.cf-nav{
+top:300px;
+bottom:auto;
+
+transform:
+translateX(-50%)
+scale(.9);
+}
+
+.cf-arrow{
+width:40px;
+height:40px;
+font-size:18px;
+}
+
+}
+
+</style>
+
+
+<script>
+
+(function(){
+
+const slides =
+document.querySelectorAll('.cf-slide');
+
+const dotsWrap =
+document.querySelector('.cf-dots');
+
+const prevBtn =
+document.querySelector('.cf-prev');
+
+const nextBtn =
+document.querySelector('.cf-next');
+
+let current = 0;
+
+
+slides.forEach((_,i)=>{
+
+const dot =
+document.createElement('div');
+
+dot.classList.add('cf-dot');
+
+dot.addEventListener('click',()=>{
+
+current=i;
+
+render();
+
+});
+
+dotsWrap.appendChild(dot);
+
+});
+
+
+const dots =
+document.querySelectorAll('.cf-dot');
+
+
+function render(){
+
+slides.forEach((slide,index)=>{
+
+const offset =
+index-current;
+
+const abs =
+Math.abs(offset);
+
+let x =
+offset*260;
+
+let rotate =
+offset*-65;
+
+let scale =
+.82;
+
+let opacity =
+.25;
+
+let z =
+100-abs;
+
+
+if(offset===0){
+
+x=0;
+
+rotate=0;
+
+scale=1;
+
+opacity=1;
+
+z=999;
+
+}
+
+
+slide.style.zIndex=z;
+
+
+slide.style.transform=`
+
+translateX(-50%)
+
+translateX(${x}px)
+
+translateZ(${-abs*180}px)
+
+rotateY(${rotate}deg)
+
+scale(${scale})
+
+`;
+
+
+slide.style.opacity =
+abs>3 ? 0 : opacity;
+
+
+slide.classList.toggle(
+'active',
+offset===0
+);
+
+});
+
+
+dots.forEach((dot,i)=>{
+
+dot.classList.toggle(
+'active',
+i===current
+);
+
+});
+
+}
+
+
+function goNext(){
+
+current++;
+
+if(current>=slides.length){
+
+current=0;
+
+}
+
+render();
+
+}
+
+
+function goPrev(){
+
+current--;
+
+if(current<0){
+
+current=slides.length-1;
+
+}
+
+render();
+
+}
+
+
+nextBtn.addEventListener(
+'click',
+goNext
+);
+
+prevBtn.addEventListener(
+'click',
+goPrev
+);
+
+
+render();
+
+
+let dragStartX=0;
+
+let isDragging=false;
+
+const dragThreshold=50;
+
+
+function handleDragStart(x){
+
+dragStartX=x;
+
+isDragging=true;
+
+}
+
+
+function handleDragEnd(x){
+
+if(!isDragging)return;
+
+isDragging=false;
+
+const diff=
+x-dragStartX;
+
+if(
+Math.abs(diff)
+<dragThreshold
+)return;
+
+if(diff<0){
+
+goNext();
+
+}else{
+
+goPrev();
+
+}
+
+}
+
+
+coverflow.addEventListener(
+'mousedown',
+(e)=>{
+handleDragStart(
+e.clientX
+);
+}
+);
+
+
+coverflow.addEventListener(
+'mouseup',
+(e)=>{
+handleDragEnd(
+e.clientX
+);
+}
+);
+
+
+coverflow.addEventListener(
+'mouseleave',
+()=>{
+isDragging=false;
+}
+);
+
+
+coverflow.addEventListener(
+'touchstart',
+(e)=>{
+handleDragStart(
+e.touches[0].clientX
+);
+},
+{passive:true}
+);
+
+
+coverflow.addEventListener(
+'touchend',
+(e)=>{
+handleDragEnd(
+e.changedTouches[0].clientX
+);
+}
+);
+
+})();
+
+</script>
+
+</body>
+</html>
+
+==================================================
+FINAL IMPLEMENTATION RULE
+==================================================
+
+Start from the reference animation above.
+
+Keep the animation logic intact.
+
+Redesign the surrounding layout and visual system.
+
+The final result must NOT have:
+
+- clipped cards
+- half-visible cards caused by container boundaries
+- huge title-to-card spacing
+- huge empty vertical areas
+- horizontal page scrolling
+- arrows below the slider
+- dark theme
+- yellow/gold colors
+- generic travel-template appearance
+
+The final result MUST have:
+
+- complete visible 3D cards
+- excellent 3D animation preserved
+- compact title-to-slider spacing
+- light premium aesthetic
+- elegant editorial typography
+- subtle travel background
+- premium destination imagery
+- side arrows
+- pagination
+- Uzbek content
+- Batafsil modal
+- Tilda order buttons
+- responsive mobile behavior
+- no horizontal page overflow
+
+DO NOT CHANGE THE WORKING 3D ANIMATION.
+
+ONLY FIX AND IMPROVE THE DESIGN, LAYOUT, CONTAINMENT, CONTENT AND UX.
+</textarea>
+
+
+<script>
+(function () {
+
+    "use strict";
+
+    window.copyPrompt = async function (button) {
+
+        const source = document.getElementById("promptSource");
+
+        if (!source) {
+            console.error("promptSource topilmadi.");
+            return;
+        }
+
+        /*
+        ======================================================
+        PROMPTNI TO'LIQ OLISH
+        ======================================================
+        */
+
+        const promptText = source.value.trim();
+
+        if (!promptText) {
+            console.warn("Prompt bo'sh.");
+            return;
+        }
+
+
+        /*
+        ======================================================
+        SUCCESS STATE
+        ======================================================
+        */
+
+        function showCopied() {
+
+            button.classList.add("copied");
+
+            button.textContent = "✓ NUSXALANDI";
+
+            setTimeout(function () {
+
+                button.classList.remove("copied");
+
+                button.textContent = "PROMPTNI NUSXALASH";
+
+            }, 1800);
+        }
+
+
+        /*
+        ======================================================
+        MODERN CLIPBOARD
+        ======================================================
+        */
+
+        async function modernCopy() {
+
+            await navigator.clipboard.writeText(promptText);
+
+            showCopied();
+        }
+
+
+        /*
+        ======================================================
+        FALLBACK COPY
+        ======================================================
+        */
+
+        function fallbackCopy() {
+
+            const textarea =
+                document.createElement("textarea");
+
+            textarea.value = promptText;
+
+            textarea.setAttribute(
+                "readonly",
+                ""
+            );
+
+            textarea.style.position = "fixed";
+            textarea.style.left = "-99999px";
+            textarea.style.top = "0";
+
+            textarea.style.width = "1px";
+            textarea.style.height = "1px";
+
+            textarea.style.opacity = "0";
+
+            document.body.appendChild(textarea);
+
+            textarea.focus();
+            textarea.select();
+
+            textarea.setSelectionRange(
+                0,
+                textarea.value.length
+            );
+
+            let success = false;
+
+            try {
+
+                success =
+                    document.execCommand("copy");
+
+            } catch (error) {
+
+                console.error(
+                    "Fallback copy error:",
+                    error
+                );
+
+            }
+
+            document.body.removeChild(textarea);
+
+            if (success) {
+
+                showCopied();
+
+            } else {
+
+                console.error(
+                    "Promptni nusxalash amalga oshmadi."
+                );
+
+            }
+        }
+
+
+        /*
+        ======================================================
+        COPY
+        ======================================================
+        */
+
+        if (
+            navigator.clipboard &&
+            typeof navigator.clipboard.writeText === "function" &&
+            window.isSecureContext
+        ) {
+
+            try {
+
+                await modernCopy();
+
+            } catch (error) {
+
+                console.warn(
+                    "Clipboard API ishlamadi. Fallback ishlatiladi.",
+                    error
+                );
+
+                fallbackCopy();
+            }
+
+        } else {
+
+            fallbackCopy();
+
+        }
+
+    };
+
+})();
+</script>
+</body>
+</html>
