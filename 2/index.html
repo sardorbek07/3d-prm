@@ -3,10 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Vada qilingan 3D Carousel Prompt</title>
 </head>
+
 <body>
-    <style>
+
+<style>
 html,
 body {
     width: 100%;
@@ -24,7 +26,6 @@ body {
     -ms-overflow-style: none;
     scrollbar-width: none;
 }
-
 
 .prompt-screen {
     width: 100vw;
@@ -49,7 +50,6 @@ body {
         "Segoe UI",
         sans-serif;
 }
-
 
 .prompt-screen::before {
     content: "";
@@ -95,8 +95,6 @@ body {
     pointer-events: none;
 }
 
-
-
 .prompt-content {
     position: relative;
 
@@ -111,7 +109,6 @@ body {
     text-align: center;
 }
 
-
 .prompt-title {
     margin: 0 0 28px;
 
@@ -125,7 +122,6 @@ body {
 
     letter-spacing: -3px;
 }
-
 
 .prompt-button {
     height: 56px;
@@ -176,8 +172,6 @@ body {
     background: #0F5A3A;
 }
 
-
-
 @media (max-width: 600px) {
 
     .prompt-title {
@@ -198,7 +192,7 @@ body {
     <div class="prompt-content">
 
         <h1 class="prompt-title">
-           Vada qilingan 3d Carousel Promt
+            Vada qilingan 3d Carousel Promt
         </h1>
 
         <button
@@ -214,62 +208,8 @@ body {
 </div>
 
 
-
-
-<textarea
-   <script>
-(function(){
-  function ready(fn){
-    if(document.readyState !== 'loading'){
-      fn();
-    } else if(document.addEventListener){
-      document.addEventListener('DOMContentLoaded',fn);
-    } else {
-      document.attachEvent('onreadystatechange',function(){
-        if(document.readyState !== 'loading') fn();
-      });
-    }
-  }
-
-  ready(()=>{
-    const gallery = document.querySelector(".galareyaclass");
-    if(!gallery) return;
-
-    function handlePrevBtnClick(){
-      const prevInternal = gallery.querySelector('.t-slds__arrow_wrapper-left');
-      if(prevInternal){
-        prevInternal.click();
-      }
-    }
-
-    function handleNextBtnClick(){
-      const nextInternal = gallery.querySelector('.t-slds__arrow_wrapper-right');
-      if(nextInternal){
-        nextInternal.click();
-      }
-    }
-
-    const intervalId = setInterval(()=>{
-      const prevBtn = document.querySelector(".chap");
-      const nextBtn = document.querySelector(".ong");
-
-      if(!prevBtn || !nextBtn) return;
-
-      clearInterval(intervalId);
-
-      prevBtn.removeEventListener('click', handlePrevBtnClick);
-      nextBtn.removeEventListener('click', handleNextBtnClick);
-
-      prevBtn.addEventListener('click', handlePrevBtnClick);
-      nextBtn.addEventListener('click', handleNextBtnClick);
-    },100);
-
-    setTimeout(()=>{
-      clearInterval(intervalId);
-    },5000);
-  });
-})();
-</script>
+<textarea id="promptSource" style="display:none;">
+BU YERGA HAQIQIY PROMPTINGIZNI JOYLASHTIRING
 </textarea>
 
 
@@ -287,25 +227,12 @@ body {
             return;
         }
 
-        /*
-        ======================================================
-        PROMPTNI TO'LIQ OLISH
-        ======================================================
-        */
-
         const promptText = source.value.trim();
 
         if (!promptText) {
             console.warn("Prompt bo'sh.");
             return;
         }
-
-
-        /*
-        ======================================================
-        SUCCESS STATE
-        ======================================================
-        */
 
         function showCopied() {
 
@@ -322,26 +249,12 @@ body {
             }, 1800);
         }
 
-
-        /*
-        ======================================================
-        MODERN CLIPBOARD
-        ======================================================
-        */
-
         async function modernCopy() {
 
             await navigator.clipboard.writeText(promptText);
 
             showCopied();
         }
-
-
-        /*
-        ======================================================
-        FALLBACK COPY
-        ======================================================
-        */
 
         function fallbackCopy() {
 
@@ -358,10 +271,8 @@ body {
             textarea.style.position = "fixed";
             textarea.style.left = "-99999px";
             textarea.style.top = "0";
-
             textarea.style.width = "1px";
             textarea.style.height = "1px";
-
             textarea.style.opacity = "0";
 
             document.body.appendChild(textarea);
@@ -405,13 +316,6 @@ body {
             }
         }
 
-
-        /*
-        ======================================================
-        COPY
-        ======================================================
-        */
-
         if (
             navigator.clipboard &&
             typeof navigator.clipboard.writeText === "function" &&
@@ -442,5 +346,6 @@ body {
 
 })();
 </script>
+
 </body>
 </html>
