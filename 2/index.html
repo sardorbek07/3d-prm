@@ -126,9 +126,11 @@ body {
 .class-list {
     display: flex;
     flex-direction: column;
+
     gap: 8px;
 
-    width: 260px;
+    width: 300px;
+
     margin-bottom: 18px;
 }
 
@@ -139,9 +141,10 @@ body {
     align-items: center;
     justify-content: space-between;
 
-    padding: 0 12px 0 16px;
+    padding: 0 8px 0 16px;
 
     border: 1px solid rgba(11,48,27,.12);
+
     border-radius: 12px;
 
     background: rgba(255,255,255,.35);
@@ -152,10 +155,17 @@ body {
 .class-item span {
     color: #0B301B;
 
-    font-size: 13px;
-    font-weight: 600;
+    font-size: 12px;
 
-    letter-spacing: .3px;
+    font-weight: 500;
+
+    letter-spacing: .1px;
+
+    text-align: left;
+}
+
+.class-item strong {
+    font-weight: 700;
 }
 
 .class-copy {
@@ -169,6 +179,7 @@ body {
     padding: 0;
 
     border: 0;
+
     border-radius: 8px;
 
     background: transparent;
@@ -245,15 +256,17 @@ body {
 
     .prompt-title {
         font-size: 38px;
+
         letter-spacing: -1.8px;
     }
 
     .class-list {
-        width: 230px;
+        width: 280px;
     }
 
     .prompt-button {
         height: 52px;
+
         padding: 0 26px;
     }
 }
@@ -265,13 +278,16 @@ body {
     <div class="prompt-content">
 
         <h1 class="prompt-title">
-            Vada qilingan 3d Carousel Promt
+        ZERO BLOCK GALAREYASIDA O‘Z STRELKALARINGIZ
         </h1>
 
         <div class="class-list">
 
             <div class="class-item">
-                <span>galareya</span>
+                <span>
+                    Galareya class: <strong>galareya</strong>
+                </span>
+
                 <button
                     type="button"
                     class="class-copy"
@@ -281,8 +297,12 @@ body {
                 </button>
             </div>
 
+
             <div class="class-item">
-                <span>ong</span>
+                <span>
+                    O‘ng strelka class: <strong>ong</strong>
+                </span>
+
                 <button
                     type="button"
                     class="class-copy"
@@ -292,8 +312,12 @@ body {
                 </button>
             </div>
 
+
             <div class="class-item">
-                <span>chap</span>
+                <span>
+                    Chap strelka class: <strong>chap</strong>
+                </span>
+
                 <button
                     type="button"
                     class="class-copy"
@@ -305,12 +329,13 @@ body {
 
         </div>
 
+
         <button
             type="button"
             class="prompt-button"
             onclick="copyPrompt(this)"
         >
-            PROMPTNI NUSXALASH
+            Kodni Nusxalash
         </button>
 
     </div>
@@ -319,7 +344,7 @@ body {
 
 
 <textarea id="promptSource" style="display:none;">
-<script>
+    <script>
 (function(){
   function ready(fn){
     if(document.readyState !== 'loading'){
@@ -380,6 +405,7 @@ body {
 
     "use strict";
 
+
     window.copyClass = async function (text, button) {
 
         try {
@@ -421,13 +447,19 @@ body {
                 document.body.removeChild(textarea);
             }
 
-            const original = button.textContent;
+
+            const original =
+                button.textContent;
 
             button.textContent = "✓";
 
+
             setTimeout(function () {
+
                 button.textContent = original;
+
             }, 1200);
+
 
         } catch (error) {
 
@@ -443,77 +475,129 @@ body {
 
     window.copyPrompt = async function (button) {
 
-        const source = document.getElementById("promptSource");
+        const source =
+            document.getElementById("promptSource");
+
 
         if (!source) {
-            console.error("promptSource topilmadi.");
+
+            console.error(
+                "promptSource topilmadi."
+            );
+
             return;
         }
 
-        const promptText = source.value.trim();
+
+        const promptText =
+            source.value.trim();
+
 
         if (!promptText) {
-            console.warn("Prompt bo'sh.");
+
+            console.warn(
+                "Prompt bo'sh."
+            );
+
             return;
         }
+
 
         function showCopied() {
 
-            button.classList.add("copied");
+            button.classList.add(
+                "copied"
+            );
 
-            button.textContent = "✓ NUSXALANDI";
+            button.textContent =
+                "✓ NUSXALANDI";
+
 
             setTimeout(function () {
 
-                button.classList.remove("copied");
+                button.classList.remove(
+                    "copied"
+                );
 
-                button.textContent = "PROMPTNI NUSXALASH";
+                button.textContent =
+                    "PROMPTNI NUSXALASH";
 
             }, 1800);
+
         }
+
 
         async function modernCopy() {
 
-            await navigator.clipboard.writeText(promptText);
+            await navigator.clipboard.writeText(
+                promptText
+            );
 
             showCopied();
+
         }
+
 
         function fallbackCopy() {
 
             const textarea =
                 document.createElement("textarea");
 
-            textarea.value = promptText;
+
+            textarea.value =
+                promptText;
+
 
             textarea.setAttribute(
                 "readonly",
                 ""
             );
 
-            textarea.style.position = "fixed";
-            textarea.style.left = "-99999px";
-            textarea.style.top = "0";
-            textarea.style.width = "1px";
-            textarea.style.height = "1px";
-            textarea.style.opacity = "0";
 
-            document.body.appendChild(textarea);
+            textarea.style.position =
+                "fixed";
+
+            textarea.style.left =
+                "-99999px";
+
+            textarea.style.top =
+                "0";
+
+            textarea.style.width =
+                "1px";
+
+            textarea.style.height =
+                "1px";
+
+            textarea.style.opacity =
+                "0";
+
+
+            document.body.appendChild(
+                textarea
+            );
+
 
             textarea.focus();
+
             textarea.select();
+
 
             textarea.setSelectionRange(
                 0,
                 textarea.value.length
             );
 
+
             let success = false;
+
 
             try {
 
                 success =
-                    document.execCommand("copy");
+                    document.execCommand(
+                        "copy"
+                    );
 
             } catch (error) {
 
@@ -524,7 +608,11 @@ body {
 
             }
 
-            document.body.removeChild(textarea);
+
+            document.body.removeChild(
+                textarea
+            );
+
 
             if (success) {
 
@@ -537,7 +625,9 @@ body {
                 );
 
             }
+
         }
+
 
         if (
             navigator.clipboard &&
@@ -557,6 +647,7 @@ body {
                 );
 
                 fallbackCopy();
+
             }
 
         } else {
