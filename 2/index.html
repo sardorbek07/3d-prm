@@ -123,6 +123,75 @@ body {
     letter-spacing: -3px;
 }
 
+.class-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+
+    width: 260px;
+    margin-bottom: 18px;
+}
+
+.class-item {
+    height: 44px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 0 12px 0 16px;
+
+    border: 1px solid rgba(11,48,27,.12);
+    border-radius: 12px;
+
+    background: rgba(255,255,255,.35);
+
+    box-sizing: border-box;
+}
+
+.class-item span {
+    color: #0B301B;
+
+    font-size: 13px;
+    font-weight: 600;
+
+    letter-spacing: .3px;
+}
+
+.class-copy {
+    width: 30px;
+    height: 30px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 0;
+
+    border: 0;
+    border-radius: 8px;
+
+    background: transparent;
+
+    color: #0B301B;
+
+    font-size: 16px;
+
+    cursor: pointer;
+
+    transition:
+        background .2s ease,
+        transform .2s ease;
+}
+
+.class-copy:hover {
+    background: rgba(11,48,27,.08);
+}
+
+.class-copy:active {
+    transform: scale(.92);
+}
+
 .prompt-button {
     height: 56px;
 
@@ -179,6 +248,10 @@ body {
         letter-spacing: -1.8px;
     }
 
+    .class-list {
+        width: 230px;
+    }
+
     .prompt-button {
         height: 52px;
         padding: 0 26px;
@@ -194,6 +267,43 @@ body {
         <h1 class="prompt-title">
             Vada qilingan 3d Carousel Promt
         </h1>
+
+        <div class="class-list">
+
+            <div class="class-item">
+                <span>galareya</span>
+                <button
+                    type="button"
+                    class="class-copy"
+                    onclick="copyClass('galareya', this)"
+                >
+                    ⧉
+                </button>
+            </div>
+
+            <div class="class-item">
+                <span>ong</span>
+                <button
+                    type="button"
+                    class="class-copy"
+                    onclick="copyClass('ong', this)"
+                >
+                    ⧉
+                </button>
+            </div>
+
+            <div class="class-item">
+                <span>chap</span>
+                <button
+                    type="button"
+                    class="class-copy"
+                    onclick="copyClass('chap', this)"
+                >
+                    ⧉
+                </button>
+            </div>
+
+        </div>
 
         <button
             type="button"
@@ -269,6 +379,67 @@ body {
 (function () {
 
     "use strict";
+
+    window.copyClass = async function (text, button) {
+
+        try {
+
+            if (
+                navigator.clipboard &&
+                typeof navigator.clipboard.writeText === "function" &&
+                window.isSecureContext
+            ) {
+
+                await navigator.clipboard.writeText(text);
+
+            } else {
+
+                const textarea =
+                    document.createElement("textarea");
+
+                textarea.value = text;
+
+                textarea.setAttribute(
+                    "readonly",
+                    ""
+                );
+
+                textarea.style.position = "fixed";
+                textarea.style.left = "-99999px";
+                textarea.style.top = "0";
+                textarea.style.width = "1px";
+                textarea.style.height = "1px";
+                textarea.style.opacity = "0";
+
+                document.body.appendChild(textarea);
+
+                textarea.focus();
+                textarea.select();
+
+                document.execCommand("copy");
+
+                document.body.removeChild(textarea);
+            }
+
+            const original = button.textContent;
+
+            button.textContent = "✓";
+
+            setTimeout(function () {
+                button.textContent = original;
+            }, 1200);
+
+        } catch (error) {
+
+            console.error(
+                "Class copy error:",
+                error
+            );
+
+        }
+
+    };
+
 
     window.copyPrompt = async function (button) {
 
