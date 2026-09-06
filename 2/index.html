@@ -1,4 +1,223 @@
-<script>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <style>
+html,
+body {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    overflow: hidden !important;
+}
+
+body::-webkit-scrollbar {
+    display: none;
+}
+
+body {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+
+.prompt-screen {
+    width: 100vw;
+    height: 100vh;
+
+    position: fixed;
+    inset: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    overflow: hidden;
+
+    background: #F5F0E3;
+    color: #0B301B;
+
+    font-family:
+        Inter,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        sans-serif;
+}
+
+
+.prompt-screen::before {
+    content: "";
+
+    position: absolute;
+
+    width: 600px;
+    height: 600px;
+
+    top: -300px;
+    right: -150px;
+
+    border-radius: 50%;
+
+    background: #E8DDC6;
+
+    filter: blur(90px);
+
+    opacity: .55;
+
+    pointer-events: none;
+}
+
+.prompt-screen::after {
+    content: "";
+
+    position: absolute;
+
+    width: 500px;
+    height: 500px;
+
+    bottom: -300px;
+    left: -150px;
+
+    border-radius: 50%;
+
+    background: #0B301B;
+
+    filter: blur(120px);
+
+    opacity: .10;
+
+    pointer-events: none;
+}
+
+
+
+.prompt-content {
+    position: relative;
+
+    z-index: 2;
+
+    display: flex;
+    flex-direction: column;
+
+    align-items: center;
+    justify-content: center;
+
+    text-align: center;
+}
+
+
+.prompt-title {
+    margin: 0 0 28px;
+
+    color: #0B301B;
+
+    font-size: clamp(34px, 5vw, 68px);
+
+    line-height: 1;
+
+    font-weight: 600;
+
+    letter-spacing: -3px;
+}
+
+
+.prompt-button {
+    height: 56px;
+
+    padding: 0 32px;
+
+    border: 1px solid rgba(11,48,27,.12);
+
+    border-radius: 100px;
+
+    background: #0B301B;
+
+    color: #F8E8D1;
+
+    font-size: 12px;
+
+    font-weight: 600;
+
+    letter-spacing: .7px;
+
+    cursor: pointer;
+
+    box-shadow:
+        0 15px 40px rgba(11,48,27,.18);
+
+    transition:
+        transform .3s ease,
+        background .3s ease,
+        box-shadow .3s ease;
+
+    -webkit-tap-highlight-color: transparent;
+}
+
+.prompt-button:hover {
+    transform: translateY(-3px);
+
+    background: #0F5A3A;
+
+    box-shadow:
+        0 20px 50px rgba(11,48,27,.25);
+}
+
+.prompt-button:active {
+    transform: scale(.96);
+}
+
+.prompt-button.copied {
+    background: #0F5A3A;
+}
+
+
+
+@media (max-width: 600px) {
+
+    .prompt-title {
+        font-size: 38px;
+        letter-spacing: -1.8px;
+    }
+
+    .prompt-button {
+        height: 52px;
+        padding: 0 26px;
+    }
+}
+</style>
+
+
+<div class="prompt-screen">
+
+    <div class="prompt-content">
+
+        <h1 class="prompt-title">
+           Vada qilingan 3d Carousel Promt
+        </h1>
+
+        <button
+            type="button"
+            class="prompt-button"
+            onclick="copyPrompt(this)"
+        >
+            PROMPTNI NUSXALASH
+        </button>
+
+    </div>
+
+</div>
+
+
+
+
+<textarea
+   <script>
 (function(){
   function ready(fn){
     if(document.readyState !== 'loading'){
@@ -51,3 +270,177 @@
   });
 })();
 </script>
+</textarea>
+
+
+<script>
+(function () {
+
+    "use strict";
+
+    window.copyPrompt = async function (button) {
+
+        const source = document.getElementById("promptSource");
+
+        if (!source) {
+            console.error("promptSource topilmadi.");
+            return;
+        }
+
+        /*
+        ======================================================
+        PROMPTNI TO'LIQ OLISH
+        ======================================================
+        */
+
+        const promptText = source.value.trim();
+
+        if (!promptText) {
+            console.warn("Prompt bo'sh.");
+            return;
+        }
+
+
+        /*
+        ======================================================
+        SUCCESS STATE
+        ======================================================
+        */
+
+        function showCopied() {
+
+            button.classList.add("copied");
+
+            button.textContent = "✓ NUSXALANDI";
+
+            setTimeout(function () {
+
+                button.classList.remove("copied");
+
+                button.textContent = "PROMPTNI NUSXALASH";
+
+            }, 1800);
+        }
+
+
+        /*
+        ======================================================
+        MODERN CLIPBOARD
+        ======================================================
+        */
+
+        async function modernCopy() {
+
+            await navigator.clipboard.writeText(promptText);
+
+            showCopied();
+        }
+
+
+        /*
+        ======================================================
+        FALLBACK COPY
+        ======================================================
+        */
+
+        function fallbackCopy() {
+
+            const textarea =
+                document.createElement("textarea");
+
+            textarea.value = promptText;
+
+            textarea.setAttribute(
+                "readonly",
+                ""
+            );
+
+            textarea.style.position = "fixed";
+            textarea.style.left = "-99999px";
+            textarea.style.top = "0";
+
+            textarea.style.width = "1px";
+            textarea.style.height = "1px";
+
+            textarea.style.opacity = "0";
+
+            document.body.appendChild(textarea);
+
+            textarea.focus();
+            textarea.select();
+
+            textarea.setSelectionRange(
+                0,
+                textarea.value.length
+            );
+
+            let success = false;
+
+            try {
+
+                success =
+                    document.execCommand("copy");
+
+            } catch (error) {
+
+                console.error(
+                    "Fallback copy error:",
+                    error
+                );
+
+            }
+
+            document.body.removeChild(textarea);
+
+            if (success) {
+
+                showCopied();
+
+            } else {
+
+                console.error(
+                    "Promptni nusxalash amalga oshmadi."
+                );
+
+            }
+        }
+
+
+        /*
+        ======================================================
+        COPY
+        ======================================================
+        */
+
+        if (
+            navigator.clipboard &&
+            typeof navigator.clipboard.writeText === "function" &&
+            window.isSecureContext
+        ) {
+
+            try {
+
+                await modernCopy();
+
+            } catch (error) {
+
+                console.warn(
+                    "Clipboard API ishlamadi. Fallback ishlatiladi.",
+                    error
+                );
+
+                fallbackCopy();
+            }
+
+        } else {
+
+            fallbackCopy();
+
+        }
+
+    };
+
+})();
+</script>
+</body>
+</html>
