@@ -1,1 +1,637 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Countdown Taymer</title>
+</head>
 
+<body>
+
+<style>
+html,
+body {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    overflow: hidden !important;
+}
+
+body::-webkit-scrollbar {
+    display: none;
+}
+
+body {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+.prompt-screen {
+    width: 100vw;
+    height: 100vh;
+
+    position: fixed;
+    inset: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    overflow: hidden;
+
+    background: #F5F0E3;
+    color: #0B301B;
+
+    font-family:
+        Inter,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        sans-serif;
+}
+
+.prompt-screen::before {
+    content: "";
+
+    position: absolute;
+
+    width: 600px;
+    height: 600px;
+
+    top: -300px;
+    right: -150px;
+
+    border-radius: 50%;
+
+    background: #E8DDC6;
+
+    filter: blur(90px);
+
+    opacity: .55;
+
+    pointer-events: none;
+}
+
+.prompt-screen::after {
+    content: "";
+
+    position: absolute;
+
+    width: 500px;
+    height: 500px;
+
+    bottom: -300px;
+    left: -150px;
+
+    border-radius: 50%;
+
+    background: #0B301B;
+
+    filter: blur(120px);
+
+    opacity: .10;
+
+    pointer-events: none;
+}
+
+.prompt-content {
+    position: relative;
+
+    z-index: 2;
+
+    display: flex;
+    flex-direction: column;
+
+    align-items: center;
+    justify-content: center;
+
+    text-align: center;
+}
+
+.prompt-title {
+    margin: 0 0 28px;
+    color: #0B301B;
+
+    font-size: clamp(24px, 3.2vw, 44px);
+    line-height: 1.05;
+    font-weight: 600;
+
+    letter-spacing: -1.8px;
+
+    max-width: 700px;
+}
+
+.class-list {
+    display: flex;
+    flex-direction: column;
+
+    gap: 8px;
+
+    width: 300px;
+
+    margin-bottom: 18px;
+}
+
+.class-item {
+    height: 44px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 0 8px 0 16px;
+
+    border: 1px solid rgba(11,48,27,.12);
+
+    border-radius: 12px;
+
+    background: rgba(255,255,255,.35);
+
+    box-sizing: border-box;
+}
+
+.class-item span {
+    color: #0B301B;
+
+    font-size: 12px;
+
+    font-weight: 500;
+
+    letter-spacing: .1px;
+
+    text-align: left;
+}
+
+.class-item strong {
+    font-weight: 700;
+}
+
+.class-copy {
+    width: 30px;
+    height: 30px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 0;
+
+    border: 0;
+
+    border-radius: 8px;
+
+    background: transparent;
+
+    color: #0B301B;
+
+    font-size: 16px;
+
+    cursor: pointer;
+
+    transition:
+        background .2s ease,
+        transform .2s ease;
+}
+
+.class-copy:hover {
+    background: rgba(11,48,27,.08);
+}
+
+.class-copy:active {
+    transform: scale(.92);
+}
+
+.prompt-button {
+    height: 56px;
+
+    padding: 0 32px;
+
+    border: 1px solid rgba(11,48,27,.12);
+
+    border-radius: 100px;
+
+    background: #0B301B;
+
+    color: #F8E8D1;
+
+    font-size: 12px;
+
+    font-weight: 600;
+
+    letter-spacing: .7px;
+
+    cursor: pointer;
+
+    box-shadow:
+        0 15px 40px rgba(11,48,27,.18);
+
+    transition:
+        transform .3s ease,
+        background .3s ease,
+        box-shadow .3s ease;
+
+    -webkit-tap-highlight-color: transparent;
+}
+
+.prompt-button:hover {
+    transform: translateY(-3px);
+
+    background: #0F5A3A;
+
+    box-shadow:
+        0 20px 50px rgba(11,48,27,.25);
+}
+
+.prompt-button:active {
+    transform: scale(.96);
+}
+
+.prompt-button.copied {
+    background: #0F5A3A;
+}
+
+@media (max-width: 600px) {
+
+    .prompt-title {
+        font-size: 38px;
+
+        letter-spacing: -1.8px;
+    }
+
+    .class-list {
+        width: 280px;
+    }
+
+    .prompt-button {
+        height: 52px;
+
+        padding: 0 26px;
+    }
+}
+</style>
+
+
+<div class="prompt-screen">
+
+    <div class="prompt-content">
+
+        <h1 class="prompt-title">
+            ZERO BLOCK COUNTDOWN TAYMER
+        </h1>
+
+        <div class="class-list">
+
+          <div class="class-item">
+    <span>
+        Forma blok: <strong>one-time-form</strong>
+    </span>
+
+    <button
+        type="button"
+        class="class-copy"
+        onclick="copyClass('one-time-form', this)"
+    >
+        ⧉
+    </button>
+</div>
+
+        </div>
+
+
+        <button
+            type="button"
+            class="prompt-button"
+            onclick="copyPrompt(this)"
+        >
+            Kodni Nusxalash
+        </button>
+
+    </div>
+
+</div>
+
+
+<textarea id="promptSource" style="display:none;">
+<!--
+Kod muallifi: Sardor Sobirov
+Instagram: @sardor-tilda
+
+Kodni vazifasi:
+Tildadagi formani bir marta yuboriladigan qilish.
+Foydalanuvchi formani faqat bir marta yubora oladi.
+
+Ishlatish:
+1. Forma joylashgan blokka sozlamasida Add Css Class qismi orqali `one-time-form` classini bering.
+2. Ushbu kodni T123 HTML block ga qo'ying.
+3. Sahifani publish qiling.
+4. Tayyor!
+-->
+
+<script>
+(function () {
+    const BLOCK_SELECTOR = '.uc-one-time-form';
+    const STORAGE_PREFIX = 'tilda-one-time-form-';
+    function getKey(block) {
+        return STORAGE_PREFIX + block.id;
+    }
+    function disableButton(block) {
+        block.querySelectorAll('.t-submit').forEach(function (button) {
+            button.disabled = true;
+            button.setAttribute('aria-disabled', 'true');
+            button.style.opacity = '0.5';
+            button.style.cursor = 'default';
+        });
+    }
+    function checkBlocks() {
+        document.querySelectorAll(BLOCK_SELECTOR).forEach(function (block) {
+            if (!block.id) return;
+            if (localStorage.getItem(getKey(block)) === 'true') {
+                disableButton(block);
+            }
+        });
+    }
+    document.addEventListener('DOMContentLoaded', checkBlocks);
+    document.addEventListener('tildaform:aftersuccess', function (event) {
+        const form = event.target;
+        if (!form || form.tagName !== 'FORM') return;
+        const block = form.closest(BLOCK_SELECTOR);
+        if (!block || !block.id) return;
+        localStorage.setItem(getKey(block), 'true');
+        disableButton(block);
+    });
+    const observer = new MutationObserver(function () {
+        checkBlocks();
+    });
+    observer.observe(document.documentElement, {
+        childList: true,
+        subtree: true
+    });
+})();
+</script>
+</textarea>
+
+
+<script>
+(function () {
+
+    "use strict";
+
+
+    window.copyClass = async function (text, button) {
+
+        try {
+
+            if (
+                navigator.clipboard &&
+                typeof navigator.clipboard.writeText === "function" &&
+                window.isSecureContext
+            ) {
+
+                await navigator.clipboard.writeText(text);
+
+            } else {
+
+                const textarea =
+                    document.createElement("textarea");
+
+                textarea.value = text;
+
+                textarea.setAttribute(
+                    "readonly",
+                    ""
+                );
+
+                textarea.style.position = "fixed";
+                textarea.style.left = "-99999px";
+                textarea.style.top = "0";
+                textarea.style.width = "1px";
+                textarea.style.height = "1px";
+                textarea.style.opacity = "0";
+
+                document.body.appendChild(textarea);
+
+                textarea.focus();
+                textarea.select();
+
+                document.execCommand("copy");
+
+                document.body.removeChild(textarea);
+            }
+
+
+            const original =
+                button.textContent;
+
+            button.textContent = "✓";
+
+
+            setTimeout(function () {
+
+                button.textContent = original;
+
+            }, 1200);
+
+
+        } catch (error) {
+
+            console.error(
+                "Class copy error:",
+                error
+            );
+
+        }
+
+    };
+
+
+    window.copyPrompt = async function (button) {
+
+        const source =
+            document.getElementById("promptSource");
+
+
+        if (!source) {
+
+            console.error(
+                "promptSource topilmadi."
+            );
+
+            return;
+        }
+
+
+        const promptText =
+            source.value.trim();
+
+
+        if (!promptText) {
+
+            console.warn(
+                "Prompt bo'sh."
+            );
+
+            return;
+        }
+
+
+        function showCopied() {
+
+            button.classList.add(
+                "copied"
+            );
+
+            button.textContent =
+                "✓ NUSXALANDI";
+
+
+            setTimeout(function () {
+
+                button.classList.remove(
+                    "copied"
+                );
+
+                button.textContent =
+                    "Kodni nusxalash";
+
+            }, 1800);
+
+        }
+
+
+        async function modernCopy() {
+
+            await navigator.clipboard.writeText(
+                promptText
+            );
+
+            showCopied();
+
+        }
+
+
+        function fallbackCopy() {
+
+            const textarea =
+                document.createElement("textarea");
+
+
+            textarea.value =
+                promptText;
+
+
+            textarea.setAttribute(
+                "readonly",
+                ""
+            );
+
+
+            textarea.style.position =
+                "fixed";
+
+            textarea.style.left =
+                "-99999px";
+
+            textarea.style.top =
+                "0";
+
+            textarea.style.width =
+                "1px";
+
+            textarea.style.height =
+                "1px";
+
+            textarea.style.opacity =
+                "0";
+
+
+            document.body.appendChild(
+                textarea
+            );
+
+
+            textarea.focus();
+
+            textarea.select();
+
+
+            textarea.setSelectionRange(
+                0,
+                textarea.value.length
+            );
+
+
+            let success = false;
+
+
+            try {
+
+                success =
+                    document.execCommand(
+                        "copy"
+                    );
+
+            } catch (error) {
+
+                console.error(
+                    "Fallback copy error:",
+                    error
+                );
+
+            }
+
+
+            document.body.removeChild(
+                textarea
+            );
+
+
+            if (success) {
+
+                showCopied();
+
+            } else {
+
+                console.error(
+                    "Promptni nusxalash amalga oshmadi."
+                );
+
+            }
+
+        }
+
+
+        if (
+            navigator.clipboard &&
+            typeof navigator.clipboard.writeText === "function" &&
+            window.isSecureContext
+        ) {
+
+            try {
+
+                await modernCopy();
+
+            } catch (error) {
+
+                console.warn(
+                    "Clipboard API ishlamadi. Fallback ishlatiladi.",
+                    error
+                );
+
+                fallbackCopy();
+
+            }
+
+        } else {
+
+            fallbackCopy();
+
+        }
+
+    };
+
+})();
+</script>
+
+</body>
+</html>
